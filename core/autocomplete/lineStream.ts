@@ -140,14 +140,14 @@ export async function* skipPrefixes(lines: LineStream): LineStream {
 const SUFFIXES_TO_SKIP = ["</COMPLETION>"];
 export async function* skipSuffixes(lines: LineStream): LineStream {
   for await (const line of lines) {
-    const firstMatch = true; 
+    let firstMatch = true; 
     if (firstMatch) {
       const match = SUFFIXES_TO_SKIP.find((suffix) => line.endsWith(suffix));
       if (match) {
         yield line.slice(0, -match.length);
         continue;
       }
-      notMatched = firstMatch;
+      firstMatch = false;
     }
     yield line;
   }
