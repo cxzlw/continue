@@ -106,7 +106,7 @@ export async function* stopAtSimilarLine(
   }
 }
 
-const LINES_TO_STOP_AT = ["# End of file.", "<STOP EDITING HERE"];
+const LINES_TO_STOP_AT = ["# End of file.", "<STOP EDITING HERE", "</COMPLETION"];
 
 export async function* stopAtLines(
   stream: LineStream,
