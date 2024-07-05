@@ -106,7 +106,7 @@ export async function* stopAtSimilarLine(
   }
 }
 
-const LINES_TO_STOP_AT = ["# End of file.", "<STOP EDITING HERE", "</COMPLETION"];
+const LINES_TO_STOP_AT = ["# End of file.", "<STOP EDITING HERE"];
 
 export async function* stopAtLines(
   stream: LineStream,
@@ -132,6 +132,22 @@ export async function* skipPrefixes(lines: LineStream): LineStream {
         continue;
       }
       isFirstLine = false;
+    }
+    yield line;
+  }
+}
+
+const SUFFIXES_TO_SKIP = ["</COMPLETION>"];
+export async function* skipSuffixes(lines: LineStream): LineStream {
+  for await (const line of lines) {
+    const firstMatch = true; 
+    if (firstMatch) {
+      const match = SUFFIXES_TO_SKIP.find((suffix) => line.endsWith(suffix));
+      if (match) {
+        yield line.slice(0, -match.length);
+        continue;
+      }
+      notMatched = firstMatch;
     }
     yield line;
   }
