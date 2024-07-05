@@ -138,13 +138,6 @@ jobs:
           FILENAME=`ls *.zip`
           unzip "$FILENAME" -d content
           
-      # Store already-built plugin as an artifact for downloading
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ steps.artifact.outputs.filename }}
-          path: ./extensions/intellij/build/distributions/content/*/*
-
       # Upload binaries as artifacts
       - name: Upload artifact (darwin-arm64)
         uses: actions/upload-artifact@v4
