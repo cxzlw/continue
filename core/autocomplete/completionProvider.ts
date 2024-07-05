@@ -40,6 +40,7 @@ import {
   avoidPathLine,
   noTopLevelKeywordsMidline,
   skipPrefixes,
+  skipSuffixes, 
   stopAtLines,
   stopAtRepeatingLines,
   stopAtSimilarLine,
@@ -665,6 +666,7 @@ export class CompletionProvider {
       lineGenerator = stopAtRepeatingLines(lineGenerator, fullStop);
       lineGenerator = avoidPathLine(lineGenerator, lang.singleLineComment);
       lineGenerator = skipPrefixes(lineGenerator);
+      lineGenerator = skipSuffixes(lineGenerator);
       lineGenerator = noTopLevelKeywordsMidline(
         lineGenerator,
         lang.topLevelKeywords,
